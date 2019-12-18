@@ -1,23 +1,43 @@
 package com.example.springsecurity.security;
 
-import org.springframework.security.core.userdetails.User;
+import com.example.springsecurity.exception.ResourceNotFoundException;
+import com.example.springsecurity.model.security.User;
+import com.example.springsecurity.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import lombok.Data;
 
 /**
- * CustomUserDetailsService
+ * Created by rajeevkumarsingh on 02/08/17.
  */
+
+@Data
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Transactional
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        // Let people login with either username or email
+        User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with username or email : " + usernameOrEmail));
 
-        // 真实系统需要从数据库或缓存中获取，这里对密码做了加密
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        return User.builder().username("Jack").password(passwordEncoder.encode("jack-password")).roles("USER").build();
+        return UserPrincipal.create(user);
     }
 
+    @Transactional
+    public UserDetails loadUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        return UserPrincipal.create(user);
+    }
 }

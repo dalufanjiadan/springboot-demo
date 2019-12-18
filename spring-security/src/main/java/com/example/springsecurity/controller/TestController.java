@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "0 Test")
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestController {
 
     @GetMapping("/hello")
