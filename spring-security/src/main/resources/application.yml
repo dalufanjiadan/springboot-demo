@@ -1,8 +1,9 @@
 app:
     swagger:
         enable: true
-    jwtSecret: JWTSuperSecretKey
-    jwtExpirationInMs: 604800000
+    jwt:
+        Secret: JWTSuperSecretKey
+        expirationInMs: 604800000
 
 server:
     port: 8090
