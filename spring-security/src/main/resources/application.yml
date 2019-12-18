@@ -1,4 +1,6 @@
 app:
+    swagger:
+        enable: true
     jwtSecret: JWTSuperSecretKey
     jwtExpirationInMs: 604800000
 
