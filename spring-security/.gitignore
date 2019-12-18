@@ -4,6 +4,8 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+src/main/resources/static/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -29,6 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# vue----------------------------------------------
 
 
 .DS_Store
