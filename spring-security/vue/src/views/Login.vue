@@ -1,5 +1,9 @@
 <template>
     <section>
+        <button class="button is-primary" @click="testBtnOnClick">
+            test
+        </button>
+
         <b-field label="Name">
             <b-input v-model="name"></b-input>
         </b-field>
@@ -34,6 +38,17 @@ export default {
         return {
             name: "John Silver"
         };
+    },
+    methods: {
+        testBtnOnClick: function() {
+            this.axios.get("http://localhost:8090/api/test/hello").then(
+                response =>{
+                    
+                    console.log("-=-=-")
+                    console.log(response)
+                }
+            )
+        }
     }
 };
 </script>
