@@ -24,7 +24,7 @@
                 </b-tag>
             </div>
             <hr />
-            <a href="#">注册</a>
+            <router-link to="/signup">Sign up</router-link>
         </div>
     </section>
 </template>
