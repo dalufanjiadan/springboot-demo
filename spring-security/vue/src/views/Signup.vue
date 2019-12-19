@@ -1,16 +1,20 @@
 <template>
     <section>
         <div class="box custom-box">
-            <b-field label="UsernameOrEmail" class="text-left">
-                <b-input v-model="usernameOrEmail"></b-input>
+            <b-field label="Username" class="text-left">
+                <b-input v-model="username"></b-input>
+            </b-field>
+
+            <b-field label="Email" class="text-left">
+                <b-input v-model="email"></b-input>
             </b-field>
 
             <b-field label="Password" class="text-left">
                 <b-input type="password" v-model="password" password-reveal> </b-input>
             </b-field>
 
-            <button class="button is-primary" @click="loginBtnOnClick">
-                Sign in
+            <button class="button is-primary" @click="signupBtnOnClick">
+                Sign up
             </button>
             <div class="field">
                 <b-tag
@@ -20,7 +24,7 @@
                     aria-close-label="Close tag"
                     @close="isErrorTagActive = false"
                 >
-                    {{errorMessage}}
+                    {{ errorMessage }}
                 </b-tag>
             </div>
         </div>
@@ -31,39 +35,40 @@
 export default {
     data() {
         return {
-            usernameOrEmail: "",
+            username: "",
+            email: "",
             password: "",
             isErrorTagActive: false,
             errorMessage: "something is wrong~ sorry!"
         };
     },
     methods: {
-        loginBtnOnClick: function() {
-
+        signupBtnOnClick: function() {
             // 检查用户名密码是否为空
-            if (this.usernameOrEmail.length  === 0 || this.password.length === 0) {
-
+            if (
+                this.username.length === 0 ||
+                this.password.length === 0 ||
+                this.email.length === 0
+            ) {
                 this.isErrorTagActive = true;
-                this.errorMessage = "Incorrect username or password."
+                this.errorMessage = "无效输入";
                 return;
             }
-            
+
             this.axios
-                .post("http://localhost:8090/api/auth/signin", {
-                    usernameOrEmail: this.usernameOrEmail,
+                .post("http://localhost:8090/api/auth/signup", {
+                    username: this.username,
+                    name: this.username,
+                    email: this.email,
                     password: this.password
                 })
                 .then(response => {
-                    var accessToken = response.data.accessToken;
-                    var tokenType = response.data.tokenType;
-                    localStorage.setItem("Authorization", tokenType + " " + accessToken);
-                    console.log(localStorage.getItem("Authorization"));
 
                     // todo:跳转到home
-                    this.$router.push({path:'/'})
+                    this.$router.push({ path: "/" });
                 })
                 .catch(error => {
-                    this.errorMessage = "Incorrect username or password."
+                    this.errorMessage = "无效输入";
                     this.isErrorTagActive = true;
                 });
         }
