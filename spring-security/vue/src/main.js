@@ -1,21 +1,34 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
-import Buefy from 'buefy'
-import 'buefy/dist/buefy.css'
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
- 
-Vue.use(Buefy)
-Vue.use(VueAxios, axios)
+import axios from "axios";
+import VueAxios from "vue-axios";
 
-Vue.config.productionTip = false
+Vue.use(Buefy);
+
+axios.interceptors.request.use(config => {
+    var token = localStorage.getItem("Authorization");
+    console.log(token);
+
+    if (token) {
+      config.headers.Authorization = token
+    }
+    
+    
+    return config;
+});
+
+Vue.use(VueAxios, axios);
+
+Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+    router,
+    store,
+    render: h => h(App)
+}).$mount("#app");

@@ -1,18 +1,23 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="home">
+        <button class="button is-primary" @click="testBtnOnClick">
+            hello
+        </button>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
-}
+    name: "home",
+    components: {},
+    methods: {
+        testBtnOnClick: function() {
+            this.axios
+                .get("http://localhost:8090/api/test/hello")
+                .then(response => {
+                    console.log(response);
+                });
+        }
+    }
+};
 </script>
