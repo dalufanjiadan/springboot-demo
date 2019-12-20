@@ -1,5 +1,9 @@
 package com.example.springsecurity.controller;
 
+import com.example.springsecurity.security.CurrentUser;
+import com.example.springsecurity.security.UserPrincipal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +21,16 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/api/test")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class TestController {
-
+    
     @GetMapping("/hello")
     @ApiOperation(value = "hello", notes = "hello world")
-    public String hello() {
+    public String hello(@CurrentUser UserPrincipal currentUser) {
+
+
+        System.out.println("-=-=-");
+        System.out.println(currentUser);
+        System.out.println("-=-=-");
+        
         return "hello world";
     }
 

@@ -41,7 +41,6 @@ export default {
     },
     methods: {
         loginBtnOnClick: function() {
-
             // 检查用户名密码是否为空
             if (this.usernameOrEmail.length === 0 || this.password.length === 0) {
                 this.isErrorTagActive = true;
@@ -59,6 +58,11 @@ export default {
                     var tokenType = response.data.tokenType;
                     localStorage.setItem("Authorization", tokenType + " " + accessToken);
                     console.log(localStorage.getItem("Authorization"));
+
+                    // 获取设置用户信息
+                    this.axios.get("http://localhost:8090/api/user/me").then(response => {
+                        console.log(response.data);
+                    });
 
                     // todo:跳转到home
                     this.$router.push({ path: "/" });
