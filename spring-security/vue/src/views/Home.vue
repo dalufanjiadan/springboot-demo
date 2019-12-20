@@ -21,8 +21,9 @@ export default {
             this.$store.commit("increment");
 
             console.log(this.$store.state.count); // -> 1
-            console.log(this.$store.commit("setName","aaa"))
-            console.log(this.$store.name)
+            console.log(this.$store.state.user)
+            console.log(this.$store.commit("user/setName","aaa"))
+            console.log(this.$store.state.user.name)
         }
     }
 };
