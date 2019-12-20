@@ -41,6 +41,7 @@ export default {
     },
     methods: {
         loginBtnOnClick: function() {
+
             // 检查用户名密码是否为空
             if (this.usernameOrEmail.length === 0 || this.password.length === 0) {
                 this.isErrorTagActive = true;
