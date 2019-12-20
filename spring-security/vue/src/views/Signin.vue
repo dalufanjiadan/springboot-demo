@@ -20,7 +20,7 @@
                     aria-close-label="Close tag"
                     @close="isErrorTagActive = false"
                 >
-                    {{errorMessage}}
+                    {{ errorMessage }}
                 </b-tag>
             </div>
             <hr />
@@ -41,15 +41,13 @@ export default {
     },
     methods: {
         loginBtnOnClick: function() {
-
             // 检查用户名密码是否为空
-            if (this.usernameOrEmail.length  === 0 || this.password.length === 0) {
-
+            if (this.usernameOrEmail.length === 0 || this.password.length === 0) {
                 this.isErrorTagActive = true;
-                this.errorMessage = "Incorrect username or password."
+                this.errorMessage = "Incorrect username or password.";
                 return;
             }
-            
+
             this.axios
                 .post("http://localhost:8090/api/auth/signin", {
                     usernameOrEmail: this.usernameOrEmail,
@@ -62,10 +60,10 @@ export default {
                     console.log(localStorage.getItem("Authorization"));
 
                     // todo:跳转到home
-                    this.$router.push({path:'/'})
+                    this.$router.push({ path: "/" });
                 })
                 .catch(error => {
-                    this.errorMessage = "Incorrect username or password."
+                    this.errorMessage = "Incorrect username or password.";
                     this.isErrorTagActive = true;
                 });
         }
