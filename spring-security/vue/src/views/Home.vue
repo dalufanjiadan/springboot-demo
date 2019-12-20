@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home section">
         <button class="button is-primary" @click="testBtnOnClick">
             hello
         </button>

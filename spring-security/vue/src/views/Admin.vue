@@ -1,13 +1,19 @@
-<template> 
-
-    <div class="admin">
-        <h1>admin</h1>
+<template>
+    <div class="section">
+        <div class="columns">
+            <b-menu class="is-3">
+                
+            </b-menu>
+        </div>
     </div>
-
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            isActive: true
+        };
+    }
+};
 </script>
-
-<style></style>

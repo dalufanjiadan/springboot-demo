@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="section">
         <div class="box custom-box">
             <b-field label="Username" class="text-left">
                 <b-input v-model="username"></b-input>
