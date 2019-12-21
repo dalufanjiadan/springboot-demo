@@ -1,9 +1,8 @@
 package com.example.springsecurity.controller;
 
-import com.example.springsecurity.exception.ResourceNotFoundException;
 import com.example.springsecurity.model.security.RoleName;
 import com.example.springsecurity.payload.*;
-import com.example.springsecurity.repository.UserRepository;
+import com.example.springsecurity.repository.RoleRepository;
 import com.example.springsecurity.security.UserPrincipal;
 import com.example.springsecurity.security.CurrentUser;
 import org.slf4j.Logger;
@@ -17,35 +16,25 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    RoleRepository roleRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/user/me")
-    @PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+
         UserSummary userSummary = new UserSummary();
-
-        System.out.println("-=-=-=-=-=-=");
-        System.out.println(currentUser);
-
-        System.out.println(currentUser.getId());
-        System.out.println("-=-=-=-=-=-=");
-
         userSummary.setId(currentUser.getId());
         userSummary.setName(currentUser.getName());
         userSummary.setUsername(currentUser.getUsername());
 
-        ;
-        System.out.println(currentUser.getAuthorities().contains(RoleName.ROLE_USER));
+        boolean isAdmin = currentUser.getAuthorities().stream()
+                .anyMatch(o -> o.toString().equals(RoleName.ROLE_ADMIN.toString()));
 
-        userSummary.setAdmin(isAdmin());
+        userSummary.setAdmin(isAdmin);
 
         return userSummary;
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    private boolean isAdmin() {
-        return true;
     }
 }
