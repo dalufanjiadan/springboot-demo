@@ -12,18 +12,14 @@ export default {
     components: {},
     methods: {
         testBtnOnClick: function() {
-            this.axios
-                .get("http://localhost:8090/api/test/hello")
-                .then(response => {
-                    console.log(response);
-                });
+            
 
-            this.$store.commit("increment");
-
-            console.log(this.$store.state.count); // -> 1
-            console.log(this.$store.state.user)
-            console.log(this.$store.commit("user/setName","aaa"))
+            console.log("==========================")
             console.log(this.$store.state.user.name)
+            console.log(this.$store.state.user.name===null)
+            console.log("==========================")
+
+            
         }
     }
 };

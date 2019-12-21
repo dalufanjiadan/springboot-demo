@@ -6,7 +6,8 @@
             </b-field>
 
             <b-field label="Password" class="text-left">
-                <b-input type="password" v-model="password" password-reveal> </b-input>
+                <b-input type="password" v-model="password" password-reveal>
+                </b-input>
             </b-field>
 
             <button class="button is-primary" @click="loginBtnOnClick">
@@ -42,7 +43,10 @@ export default {
     methods: {
         loginBtnOnClick: function() {
             // 检查用户名密码是否为空
-            if (this.usernameOrEmail.length === 0 || this.password.length === 0) {
+            if (
+                this.usernameOrEmail.length === 0 ||
+                this.password.length === 0
+            ) {
                 this.isErrorTagActive = true;
                 this.errorMessage = "Incorrect username or password.";
                 return;
@@ -56,13 +60,17 @@ export default {
                 .then(response => {
                     var accessToken = response.data.accessToken;
                     var tokenType = response.data.tokenType;
-                    localStorage.setItem("Authorization", tokenType + " " + accessToken);
-                    console.log(localStorage.getItem("Authorization"));
+                    localStorage.setItem(
+                        "Authorization",
+                        tokenType + " " + accessToken
+                    );
 
                     // 获取设置用户信息
-                    this.axios.get("http://localhost:8090/api/user/me").then(response => {
-                        console.log(response.data);
-                    });
+                    this.axios
+                        .get("http://localhost:8090/api/user/me")
+                        .then(response => {
+                            this.$store.commit("user/set", response.data);
+                        });
 
                     // todo:跳转到home
                     this.$router.push({ path: "/" });

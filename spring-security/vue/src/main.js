@@ -13,8 +13,6 @@ Vue.use(Buefy);
 
 axios.interceptors.request.use(config => {
     var token = localStorage.getItem("Authorization");
-    console.log(token);
-
     if (token) {
         config.headers.Authorization = token;
     }

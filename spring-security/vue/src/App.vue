@@ -35,7 +35,7 @@
             </template>
 
             <template slot="end">
-                <b-navbar-item tag="div">
+                <b-navbar-item tag="div" v-if="this.$store.state.user.name === null">
                     <div class="buttons">
                         <a class="button is-primary" href="/#/signup">
                             <strong>Sign up</strong>
@@ -45,11 +45,14 @@
                         </a>
                     </div>
                 </b-navbar-item>
-                <b-navbar-dropdown label="haha">
-                    <b-navbar-item href="/#/admin" v-if="true">
+                <b-navbar-dropdown
+                    :label="this.$store.state.user.name"
+                    v-if="this.$store.state.user.name !== null"
+                >
+                    <b-navbar-item href="/#/admin" v-if="this.$store.state.user.isAdmin === true">
                         Admin
                     </b-navbar-item>
-              
+
                     <b-navbar-item @click="signout">
                         sign out
                     </b-navbar-item>
@@ -65,16 +68,18 @@ export default {
     data() {
         return {
             username: "",
-            email: "",
-            password: "",
+            name: "",
+            isAdmin: "",
             isErrorTagActive: false,
             errorMessage: "something is wrong~ sorry!"
         };
     },
     methods: {
         signout: function() {
-            // 清除token 
+            // 清除token
             localStorage.removeItem("Authorization");
+            // 清除user
+            this.$store.commit("user/clear");
             // todo:跳转到home
             this.$router.push({ path: "/signin" });
         }

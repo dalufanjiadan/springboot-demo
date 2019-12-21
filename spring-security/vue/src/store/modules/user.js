@@ -1,4 +1,5 @@
 const state = {
+    id: null,
     name: null,
     username: null,
     signin: false,
@@ -10,8 +11,18 @@ const getters = {};
 const actions = {};
 
 const mutations = {
-    setName(state, name) {
-        state.name = name;
+    set(state, user) {
+        state.id = user.id;
+        state.name = user.name;
+        state.username = user.username;
+        state.isAdmin = user.admin;
+    },
+    clear(state) {
+        state.id = null;
+        state.name = null;
+        state.username = null;
+        state.siginin = false;
+        state.isAdmin = null;
     }
 };
 
