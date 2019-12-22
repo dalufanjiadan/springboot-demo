@@ -86,7 +86,7 @@ export default {
     },
     created: function() {
         // 获取用户信息
-        this.axios.get("http://localhost:8090/api/user/me").then(response => {
+        this.$Axios.get("/user/me").then(response => {
             this.$store.commit("user/set", response.data);
         });
     }

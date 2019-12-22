@@ -49,25 +49,17 @@ export default {
             }
 
             this.$Axios
-                .post("/api/auth/signin", {
+                .post("/auth/signin", {
                     usernameOrEmail: this.usernameOrEmail,
                     password: this.password
                 })
                 .then(response => {
-
-                    console.log(response)
-                    console.log(response.status)
-                    if (response) {
-                        
-                    }
-
-                    
                     var accessToken = response.data.accessToken;
                     var tokenType = response.data.tokenType;
                     localStorage.setItem("Authorization", tokenType + " " + accessToken);
 
                     // 获取设置用户信息
-                    this.$Axios.get("/api/user/me").then(response => {
+                    this.$Axios.get("/user/me").then(response => {
                         this.$store.commit("user/set", response.data);
                     });
 
@@ -77,7 +69,7 @@ export default {
                 .catch(error => {
                     this.errorMessage = "Incorrect username or password.";
                     this.isErrorTagActive = true;
-                    console.log("-=-=")
+                    // console.log(error)
                 });
         }
     }
