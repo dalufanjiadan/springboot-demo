@@ -8,21 +8,11 @@ import "buefy/dist/buefy.css";
 
 import axios from "axios";
 import VueAxios from "vue-axios";
+import Axios from "./utils/httpUtil"
 
 Vue.use(Buefy);
-
-axios.interceptors.request.use(config => {
-    var token = localStorage.getItem("Authorization");
-    if (token) {
-        config.headers.Authorization = token;
-    }
-
-    return config;
-});
-
 Vue.use(VueAxios, axios);
-
-Vue.config.productionTip = false;
+Vue.use(Axios)
 
 new Vue({
     router,

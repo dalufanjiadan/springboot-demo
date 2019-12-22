@@ -17,8 +17,15 @@ export default {
             console.log("==========================")
             console.log(this.$store.state.user.name)
             console.log(this.$store.state.user.name===null)
+            console.log(this.$Axios)
             console.log("==========================")
-
+            this.$Axios.get("/test/hello").then(
+                data=>{
+                    console.log("------------")
+                    console.log(data)
+                    console.log("------------")
+                }
+            )
             
         }
     }

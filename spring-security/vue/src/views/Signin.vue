@@ -6,8 +6,7 @@
             </b-field>
 
             <b-field label="Password" class="text-left">
-                <b-input type="password" v-model="password" password-reveal>
-                </b-input>
+                <b-input type="password" v-model="password" password-reveal> </b-input>
             </b-field>
 
             <button class="button is-primary" @click="loginBtnOnClick">
@@ -43,34 +42,34 @@ export default {
     methods: {
         loginBtnOnClick: function() {
             // 检查用户名密码是否为空
-            if (
-                this.usernameOrEmail.length === 0 ||
-                this.password.length === 0
-            ) {
+            if (this.usernameOrEmail.length === 0 || this.password.length === 0) {
                 this.isErrorTagActive = true;
                 this.errorMessage = "Incorrect username or password.";
                 return;
             }
 
-            this.axios
-                .post("http://localhost:8090/api/auth/signin", {
+            this.$Axios
+                .post("/api/auth/signin", {
                     usernameOrEmail: this.usernameOrEmail,
                     password: this.password
                 })
                 .then(response => {
+
+                    console.log(response)
+                    console.log(response.status)
+                    if (response) {
+                        
+                    }
+
+                    
                     var accessToken = response.data.accessToken;
                     var tokenType = response.data.tokenType;
-                    localStorage.setItem(
-                        "Authorization",
-                        tokenType + " " + accessToken
-                    );
+                    localStorage.setItem("Authorization", tokenType + " " + accessToken);
 
                     // 获取设置用户信息
-                    this.axios
-                        .get("http://localhost:8090/api/user/me")
-                        .then(response => {
-                            this.$store.commit("user/set", response.data);
-                        });
+                    this.$Axios.get("/api/user/me").then(response => {
+                        this.$store.commit("user/set", response.data);
+                    });
 
                     // todo:跳转到home
                     this.$router.push({ path: "/" });
@@ -78,6 +77,7 @@ export default {
                 .catch(error => {
                     this.errorMessage = "Incorrect username or password.";
                     this.isErrorTagActive = true;
+                    console.log("-=-=")
                 });
         }
     }
