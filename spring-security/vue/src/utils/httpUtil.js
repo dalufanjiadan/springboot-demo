@@ -31,9 +31,6 @@ Axios.interceptors.request.use(
 //响应拦截器即异常处理
 Axios.interceptors.response.use(
     response => {
-        console.log("=====")
-        console.log(response)
-        console.log("=====")
         return response;
     },
     err => {

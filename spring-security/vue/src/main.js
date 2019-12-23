@@ -11,15 +11,57 @@ import VueAxios from "vue-axios";
 import Axios from "./utils/httpUtil";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret,faAd } from "@fortawesome/free-solid-svg-icons";
+import { faUserSecret, faAd } from "@fortawesome/free-solid-svg-icons";
 import { faFontAwesome } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faUserSecret,faAd, faFontAwesome);
+import {
+    faCheck,
+    faCheckCircle,
+    faInfoCircle,
+    faExclamationTriangle,
+    faExclamationCircle,
+    faArrowUp,
+    faAngleRight,
+    faAngleLeft,
+    faAngleDown,
+    faEye,
+    faEyeSlash,
+    faCaretDown,
+    faCaretUp,
+    faUpload,
+    // faAccount,
+} from "@fortawesome/free-solid-svg-icons";
 
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+library.add(
+    faCheck,
+    faCheckCircle,
+    faInfoCircle,
+    faExclamationTriangle,
+    faExclamationCircle,
+    faArrowUp,
+    faAngleRight,
+    faAngleLeft,
+    faAngleDown,
+    faEye,
+    faEyeSlash,
+    faCaretDown,
+    faCaretUp,
+    faUpload,
+    faFontAwesome,
+    // faAccount
+);
 
-Vue.use(Buefy);
+library.add(faUserSecret, faAd, faFontAwesome);
+// Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component('vue-fontawesome', FontAwesomeIcon);
+
+Vue.use(Buefy, {
+    defaultIconComponent: "vue-fontawesome",
+    defaultIconPack: "fas"
+});
+
+
 Vue.use(VueAxios, axios);
 Vue.use(Axios);
 

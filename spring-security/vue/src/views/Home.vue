@@ -1,9 +1,10 @@
 <template>
     <div class="home section">
-        <font-awesome-icon :icon="['fas', 'user-secret']" />
-        <font-awesome-icon :icon="['fas', 'ad']" />
+        <b-icon pack="fas" icon="arrow-up" size="is-small"> </b-icon>
+        <br>
+        <font-awesome-icon :icon="['fas', 'user-secret']" size="lg"/>
+        <font-awesome-icon :icon="['fas', 'arrow-up']" size="lg"/>
         <font-awesome-icon :icon="['fab', 'font-awesome']" />
-        fasdfasdfasdf
         <button class="button is-primary" @click="testBtnOnClick">
             hello
         </button>
