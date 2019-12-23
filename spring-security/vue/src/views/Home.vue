@@ -3,6 +3,7 @@
         <font-awesome-icon :icon="['fas', 'user-secret']" />
         <font-awesome-icon :icon="['fas', 'ad']" />
         <font-awesome-icon :icon="['fab', 'font-awesome']" />
+        fasdfasdfasdf
         <button class="button is-primary" @click="testBtnOnClick">
             hello
         </button>

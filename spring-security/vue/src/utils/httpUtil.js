@@ -2,12 +2,12 @@ import axios from "axios";
 import router from "../router/index";
 
 const Axios = axios.create({
-    baseURL: "http://localhost:8090/api",
+    baseURL: process.env.VUE_APP_URL,
     timeout: 5000,
-    responseType: "json",
-    headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-    }
+    // responseType: "json",
+    // headers: {
+    //     "Content-Type": "application/json;charset=UTF-8"
+    // }
 });
 
 //http request 拦截器
@@ -31,6 +31,9 @@ Axios.interceptors.request.use(
 //响应拦截器即异常处理
 Axios.interceptors.response.use(
     response => {
+        console.log("=====")
+        console.log(response)
+        console.log("=====")
         return response;
     },
     err => {

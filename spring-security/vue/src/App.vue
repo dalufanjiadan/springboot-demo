@@ -85,6 +85,10 @@ export default {
         }
     },
     created: function() {
+        console.log("---------------------------------");
+        console.log(process.env.VUE_APP_URL);
+        console.log("---------------------------------");
+
         // 获取用户信息
         this.$Axios.get("/user/me").then(response => {
             this.$store.commit("user/set", response.data);
