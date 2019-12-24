@@ -2,39 +2,44 @@
     <div class="section">
         <!-- <b-icon icon="user-secret"> </b-icon> -->
         <div class="columns">
-            <button class="button is-primary" @click="testBtnOnClick">
-                hello
-            </button>
+            <aside class="menu column is-2" >
+                <p class="menu-label">
+                    General
+                </p>
+                <ul class="menu-list">
+                    <li><a>Dashboard</a></li>
+                    <li><a>Customers</a></li>
+                </ul>
+                <p class="menu-label">
+                    Administration
+                </p>
+                <ul class="menu-list">
+                    <li><a>Team Settings</a></li>
+                    <li>
+                        <a class="is-active" @click="menuOnClick($event)">Manage Your Team</a>
+                        <ul>
+                            <li><a @click="menuOnClick($event)">Members</a></li>
+                            <li><a @click="menuOnClick($event)">Plugins</a></li>
+                            <li><a @click="menuOnClick($event)">Add a member</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Invitations</a></li>
+                    <li><a>Cloud Storage Environment Settings</a></li>
+                    <li><a>Authentication</a></li>
+                </ul>
+                <p class="menu-label">
+                    Transactions
+                </p>
+                <ul class="menu-list">
+                    <li><a>Payments</a></li>
+                    <li><a>Transfers</a></li>
+                    <li><a>Balance</a></li>
+                </ul>
+            </aside>
 
-            <div class="column is-2">
-                <b-menu :accordion="accordion">
-                    <b-menu-list label="Menu">
-                        <b-menu-item
-                            :active="isActive"
-                            :expanded="expanded1 === 'user'"
-                            @click="menu1OnClick($event)"
-                            label="user"
-                            accordion="false"
-                        >
-                            <b-menu-item label="Users" @click="test"></b-menu-item>
-                            <b-menu-item label="Payments" disabled @click="test"></b-menu-item>
-                        </b-menu-item>
-
-                        <b-menu-item
-                            :active="isActive"
-                            :expanded="expanded1 === 'role'"
-                            @click="isActive = !isActive"
-                            label="role"
-                            accordion="false"
-                        >
-                            <b-menu-item label="Users" @click="test"></b-menu-item>
-                            <b-menu-item label="Payments" @click="test"></b-menu-item>
-                        </b-menu-item>
-                    </b-menu-list>
-                </b-menu>
+            
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -58,6 +63,13 @@ export default {
                 console.log(data);
                 console.log("------------");
             });
+        },
+        menuOnClick: function(event){
+            console.log("===========================")
+            console.log(event)
+            event.target.classList.add("is-active")
+            console.log(event.target)
+            console.log("===========================")
         }
     }
 };
