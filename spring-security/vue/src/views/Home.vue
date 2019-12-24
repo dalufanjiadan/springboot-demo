@@ -2,9 +2,6 @@
     <div class="home section">
         <b-icon pack="fas" icon="arrow-up" size="is-small"> </b-icon>
         <br>
-        <font-awesome-icon :icon="['fas', 'user-secret']" size="lg"/>
-        <font-awesome-icon :icon="['fas', 'arrow-up']" size="lg"/>
-        <font-awesome-icon :icon="['fab', 'font-awesome']" />
         <button class="button is-primary" @click="testBtnOnClick">
             hello
         </button>

@@ -1,75 +1,49 @@
 <template>
     <div class="section">
         <!-- <b-icon icon="user-secret"> </b-icon> -->
-        <div class="columns">
-            <aside class="menu column is-2" >
-                <p class="menu-label">
-                    General
-                </p>
-                <ul class="menu-list">
-                    <li><a>Dashboard</a></li>
-                    <li><a>Customers</a></li>
-                </ul>
-                <p class="menu-label">
-                    Administration
-                </p>
-                <ul class="menu-list">
-                    <li><a>Team Settings</a></li>
-                    <li>
-                        <a class="is-active" @click="menuOnClick($event)">Manage Your Team</a>
-                        <ul>
-                            <li><a @click="menuOnClick($event)">Members</a></li>
-                            <li><a @click="menuOnClick($event)">Plugins</a></li>
-                            <li><a @click="menuOnClick($event)">Add a member</a></li>
-                        </ul>
-                    </li>
-                    <li><a>Invitations</a></li>
-                    <li><a>Cloud Storage Environment Settings</a></li>
-                    <li><a>Authentication</a></li>
-                </ul>
-                <p class="menu-label">
-                    Transactions
-                </p>
-                <ul class="menu-list">
-                    <li><a>Payments</a></li>
-                    <li><a>Transfers</a></li>
-                    <li><a>Balance</a></li>
-                </ul>
-            </aside>
+        <div class="columns is-variable is-8">
+            <div class="column is-2">
+                <b-menu>
+                    <b-menu-list label="menu">
+                        <b-menu-item label="用户管理">
+                            <b-menu-item label="全部用户" @click="getAllUser"></b-menu-item>
+                            <b-menu-item label="查找用户"></b-menu-item>
+                        </b-menu-item>
 
-            
+                        <b-menu-item label="My Account">
+                            <b-menu-item label="Account data"></b-menu-item>
+                            <b-menu-item label="Addresses"></b-menu-item>
+                        </b-menu-item>
+                    </b-menu-list>
+                </b-menu>
+            </div>
+            <div class="column is-9">
+                <UserTable :users="users"> </UserTable>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
+import UserTable from "../components/UserTable";
+
 export default {
     data() {
         return {
-            accordion: false,
-            // 记录第一层目录当前选中层
-            expanded1: "role"
-            // isActive: true,
+            users:null,
         };
     },
+    components: {
+        UserTable
+    },
     methods: {
-        menu1OnClick: function(e) {
-            console.log("hello world");
-            console.log(e);
-        },
-        testBtnOnClick: function() {
-            this.$Axios.get("/users").then(data => {
-                console.log("------------");
-                console.log(data);
-                console.log("------------");
-            });
-        },
-        menuOnClick: function(event){
-            console.log("===========================")
-            console.log(event)
-            event.target.classList.add("is-active")
-            console.log(event.target)
-            console.log("===========================")
+        getAllUser: function() {
+            this.$Axios.get("/users").then(response=>{
+                this.users=response.data
+                console.log("============")
+                console.log(this.users)
+                console.log("============")
+            })
         }
     }
 };
