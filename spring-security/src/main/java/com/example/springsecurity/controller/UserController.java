@@ -1,8 +1,11 @@
 package com.example.springsecurity.controller;
 
+import com.example.springsecurity.exception.ResourceNotFoundException;
 import com.example.springsecurity.model.security.RoleName;
+import com.example.springsecurity.model.security.User;
 import com.example.springsecurity.payload.*;
 import com.example.springsecurity.repository.RoleRepository;
+import com.example.springsecurity.repository.UserRepository;
 import com.example.springsecurity.security.UserPrincipal;
 import com.example.springsecurity.security.CurrentUser;
 import org.slf4j.Logger;
@@ -17,6 +20,9 @@ public class UserController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -36,5 +42,15 @@ public class UserController {
         userSummary.setAdmin(isAdmin);
 
         return userSummary;
+    }
+
+    @GetMapping("/users/{username}")
+    public UserProfile getUser(@PathVariable(value = "username") String username) {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+        
+        UserProfile userProfile = new UserProfile(user);
+        return userProfile;
     }
 }
