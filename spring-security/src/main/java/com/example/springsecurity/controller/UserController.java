@@ -1,5 +1,8 @@
 package com.example.springsecurity.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.springsecurity.exception.ResourceNotFoundException;
 import com.example.springsecurity.model.security.RoleName;
 import com.example.springsecurity.model.security.User;
@@ -44,13 +47,27 @@ public class UserController {
         return userSummary;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users/{username}")
     public UserProfile getUser(@PathVariable(value = "username") String username) {
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-        
+
         UserProfile userProfile = new UserProfile(user);
         return userProfile;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/users")
+    public List<UserProfile> getAll() {
+
+        List<User> users = userRepository.findAll();
+        List<UserProfile> result = new ArrayList<>();
+        for (User user : users) {
+            result.add(new UserProfile(user));
+        }
+
+        return result;
     }
 }
