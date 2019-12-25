@@ -18,11 +18,11 @@
             @sort="onSort"
         >
             <template slot-scope="props">
-                <b-table-column field="id" label="id" sortable>
+                <b-table-column field="id" label="id" sortable searchable>
                     {{ props.row.id }}
                 </b-table-column>
 
-                <b-table-column field="name" label="name" numeric sortable>
+                <b-table-column field="name" label="name" sortable searchable>
                     <span class="tag" :class="type(props.row.name)">
                         {{ props.row.name }}
                     </span>
@@ -33,11 +33,11 @@
                 </b-table-column>
 
                 <!-- centered -->
-                <b-table-column field="joinedAt" label="joinedAt" sortable >
+                <b-table-column field="createdAt" label="joinedAt" sortable searchable>
                     {{ props.row.joinedAt }}
                 </b-table-column>
 
-                <b-table-column label="roles" >
+                <b-table-column label="roles" searchable>
                     <!-- {{ props.row.overview | truncate(80) }} -->
                     <!-- {{ props.row.roles}} -->
                     <span class="tag" v-for="role in props.row.roles" :key="role.id">
@@ -56,11 +56,11 @@ export default {
             data: [],
             total: 0,
             loading: false,
-            sortField: "vote_count",
+            sortField: "id",
             sortOrder: "desc",
             defaultSortOrder: "desc",
             page: 1,
-            perPage: 20
+            perPage: 2
         };
     },
     props: ["users"],
@@ -71,12 +71,15 @@ export default {
          */
         loadAsyncData() {
             const params = [
-                "api_key=bb6f51bef07465653c3e553d6ab161a8",
-                "language=en-US",
-                "include_adult=false",
-                "include_video=false",
-                `sort_by=${this.sortField}.${this.sortOrder}`,
-                `page=${this.page}`
+                // "api_key=bb6f51bef07465653c3e553d6ab161a8",
+                // "language=en-US",
+                // "include_adult=false",
+                // "include_video=false",
+                // `sortBy=${this.sortField}.${this.sortOrder}`,
+                `perPage=${this.perPage}`,
+                `page=${this.page}`,
+                `sortField=${this.sortField}`,
+                `sortOrder=${this.sortOrder}`
             ].join("&");
 
             this.loading = true;
@@ -103,16 +106,15 @@ export default {
             //         throw error;
             //     });
 
-            this.$Axios.get("/users").then(response => {
+            this.$Axios.get(`/users?${params}`).then(response => {
                 let data = response.data;
-                this.data = [];
 
-                let currentTotal = data.length;
-                if (data.length / this.perPage > 1000) {
-                    currentTotal = this.perPage * 1000;
-                }
-                this.total = currentTotal;
-                data.forEach(item => {
+                console.log(data)
+                
+                this.data = [];
+                this.total = data.total;
+
+                data.data.forEach(item => {
                     this.data.push(item);
                 });
                 this.loading = false;

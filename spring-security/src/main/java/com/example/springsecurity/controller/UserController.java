@@ -1,6 +1,7 @@
 package com.example.springsecurity.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,15 +67,33 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
-    public List<UserProfile> getAll(@RequestParam Map<String, Object> params) {
+    public Map<String, Object> getAll(@RequestParam Map<String, Object> params) {
 
-        Pageable pageable = PageRequest.of(0, 2, Sort.by("id"));
+        String sortField = params.get("sortField").toString();
+        String sortOrder = params.get("sortOrder").toString();
+        int page = Integer.parseInt(params.get("page").toString()) - 1;
+        int perPage = Integer.parseInt(params.get("perPage").toString());
+
+        Sort sort = Sort.by(sortField);
+
+        if ("asc".equals(sortOrder)) {
+            sort = sort.ascending();
+        } else {
+            sort = sort.descending();
+        }
+
+        // Sort.by(Direction.DESC, "id")
+        Pageable pageable = PageRequest.of(page, perPage, sort);
 
         Page<User> users = userRepository.findAll(pageable);
-        List<UserProfile> result = new ArrayList<>();
+        List<UserProfile> data = new ArrayList<>();
         for (User user : users) {
-            result.add(new UserProfile(user));
+            data.add(new UserProfile(user));
         }
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", data);
+        result.put("total", users.getTotalElements());
 
         return result;
     }
