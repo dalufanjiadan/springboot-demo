@@ -20,7 +20,7 @@
                     </b-menu-list>
                 </b-menu>
             </div>
-            <div class="column is-9">
+            <div class="column is-10 ">
                 <UserTable v-if="vif.userTable"> </UserTable>
                 <UserEdit v-if="vif.userEdit"></UserEdit>
             </div>

@@ -16,6 +16,7 @@
             :default-sort-direction="defaultSortOrder"
             :default-sort="[sortField, sortOrder]"
             @sort="onSort"
+            bordered
         >
             <template slot-scope="props">
                 <b-table-column field="id" label="id" sortable searchable>
@@ -33,16 +34,22 @@
                 </b-table-column>
 
                 <!-- centered -->
-                <b-table-column field="createdAt" label="joinedAt" sortable searchable>
+                <b-table-column field="createdAt" label="joinedAt" sortable >
                     {{ props.row.joinedAt }}
                 </b-table-column>
 
-                <b-table-column label="roles" searchable>
+                <b-table-column label="roles" >
                     <!-- {{ props.row.overview | truncate(80) }} -->
                     <!-- {{ props.row.roles}} -->
-                    <span class="tag" v-for="role in props.row.roles" :key="role.id">
-                        {{ role.name }} {{ role.id }}
-                    </span>
+                    <!-- <span class="tag is-info" v-for="role in props.row.roles" :key="role.id">
+                    </span> -->
+                    <!-- {{ getRoleStr(props.row.roles) }} -->
+
+                    <!-- {{ role.name }} -->
+
+                    <b-taglist>
+                        <b-tag type="is-info" v-for="role in props.row.roles" :key="role.id">{{ role.name }}</b-tag>
+                    </b-taglist>
                 </b-table-column>
             </template>
         </b-table>
@@ -109,8 +116,8 @@ export default {
             this.$Axios.get(`/users?${params}`).then(response => {
                 let data = response.data;
 
-                console.log(data)
-                
+                console.log(data);
+
                 this.data = [];
                 this.total = data.total;
 
@@ -147,6 +154,13 @@ export default {
             } else if (number >= 8) {
                 return "is-success";
             }
+        },
+        getRoleStr(roles) {
+            let result = "";
+            roles.forEach(role => (result += role.name + " "));
+
+            console.log(result);
+            return result.trim();
         }
     },
     filters: {
