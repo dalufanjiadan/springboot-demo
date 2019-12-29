@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import com.example.springsecurity.exception.AppException;
 import com.example.springsecurity.exception.ResourceNotFoundException;
 import com.example.springsecurity.model.security.RoleName;
 import com.example.springsecurity.model.security.User;
@@ -97,4 +99,40 @@ public class UserController {
 
         return result;
     }
+
+    @GetMapping("/users/search")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public User searchUser(@RequestParam(value = "searchText") String searchText) {
+
+        Optional<User> user = null;
+
+        try {
+            Long id = Long.parseLong(searchText);
+            user = userRepository.findById(id);
+        } catch (Exception e) {
+            user = userRepository.findByUsername(searchText);
+            if (!user.isPresent()) {
+                user = userRepository.findByEmail(searchText);
+            }
+        }
+
+        return user.orElseThrow(() -> new AppException("user not found"));
+    }
+
+    @PutMapping("/users/{username}")
+    public User updateUser(@PathVariable(value = "username") String username,
+            @RequestBody Map<String, Object> userParam) {
+
+        System.out.println(username);
+        System.out.println(userParam);
+
+        User user = userRepository.findByUsername(username).orElseThrow(()->new AppException("user not found"));
+        user.setName(userParam.get("name").toString());
+
+
+        userRepository.save(user);
+
+        return user;
+    }
+
 }

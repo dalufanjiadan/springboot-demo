@@ -23,15 +23,16 @@
                     {{ props.row.id }}
                 </b-table-column>
 
-                <b-table-column field="name" label="name" sortable searchable>
-                    <span class="tag" :class="type(props.row.name)">
-                        {{ props.row.name }}
-                    </span>
-                </b-table-column>
-
                 <b-table-column field="username" label="username" sortable searchable>
                     {{ props.row.username }}
                 </b-table-column>
+
+                <b-table-column field="name" label="name" sortable searchable>
+                    <!-- <span class="tag" :class="type(props.row.name)"> -->
+                        {{ props.row.name }}
+                    <!-- </span> -->
+                </b-table-column>
+
 
                 <!-- centered -->
                 <b-table-column field="createdAt" label="joinedAt" sortable >
