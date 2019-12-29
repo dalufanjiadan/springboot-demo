@@ -29,6 +29,8 @@ public class TestController {
 
         System.out.println("-=-=-");
         System.out.println(currentUser);
+
+        System.out.println("hello world");
         System.out.println("-=-=-");
         
         return "hello world";

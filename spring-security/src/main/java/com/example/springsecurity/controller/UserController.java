@@ -2,12 +2,15 @@ package com.example.springsecurity.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import com.example.springsecurity.exception.AppException;
 import com.example.springsecurity.exception.ResourceNotFoundException;
+import com.example.springsecurity.model.security.Role;
 import com.example.springsecurity.model.security.RoleName;
 import com.example.springsecurity.model.security.User;
 import com.example.springsecurity.payload.*;
@@ -123,13 +126,16 @@ public class UserController {
     public User updateUser(@PathVariable(value = "username") String username,
             @RequestBody Map<String, Object> userParam) {
 
-        System.out.println(username);
-        System.out.println(userParam);
-
-        User user = userRepository.findByUsername(username).orElseThrow(()->new AppException("user not found"));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException("user not found"));
         user.setName(userParam.get("name").toString());
 
-
+        Set<Role> roles = new HashSet<>();
+        for (String roleName : (List<String>) userParam.get("roles")) {
+            Role userRole = roleRepository.findByName(RoleName.valueOf(roleName))
+                    .orElseThrow(() -> new AppException("User Role not set."));
+            roles.add(userRole);
+        }
+        user.setRoles(roles);
         userRepository.save(user);
 
         return user;

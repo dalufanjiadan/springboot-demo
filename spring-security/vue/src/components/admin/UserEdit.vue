@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="columns">
-            <div class="column is-4 is-offset-4">
+            <div class="column is-4 is-offset-4 is-clearfix">
                 <b-field>
                     <!-- <b-input placeholder="No label" rounded></b-input> -->
                     <input
@@ -29,9 +29,25 @@
                     <b-input placeholder="name" v-model="name"></b-input>
                 </b-field>
 
-                <!-- <b-button class="is-primary">查找</b-button> -->
-                <!-- <b-input class="button"></b-input> -->
-                <button class="button" @click="update">更新</button>
+                <b-field label="roles"></b-field>
+
+                <b-field>
+                    <b-checkbox
+                        v-model="roles"
+                        v-for="role in allRoles"
+                        :key="role.id"
+                        :native-value="role.name"
+                        class="is-pulled-left"
+                    >
+                        {{ role.name }}
+                    </b-checkbox>
+                </b-field>
+
+                <div class="is-clearfix"></div>
+
+                <b-fild>
+                    <button class="button" @click="update">更新</button>
+                </b-fild>
             </div>
         </div>
     </section>
@@ -46,23 +62,31 @@ export default {
             username: null,
             name: null,
             email: null,
-            roles: null
+            roles: [],
+            allRoles: null
         };
     },
     methods: {
         search: function() {
+            this.id = null;
+            this.username = null;
+            this.name = null;
+            this.email = null;
+            this.roles = [];
+
             this.$Axios.get(`/users/search?searchText=${this.searchText}`).then(response => {
                 let data = response.data;
                 this.id = data.id;
                 this.username = data.username;
                 this.name = data.name;
                 this.email = data.email;
-                this.roles = data.roles;
+
+                data.roles.forEach(element => {
+                    this.roles.push(element.name);
+                });
             });
         },
         update: function() {
-            console.log("hello world");
-
             this.$Axios
                 .put(`/users/${this.username}`, {
                     name: this.name,
@@ -74,9 +98,13 @@ export default {
                     this.username = data.username;
                     this.name = data.name;
                     this.email = data.email;
-                    this.roles = data.roles;
                 });
         }
+    },
+    created: function() {
+        this.$Axios.get("/roles").then(response => {
+            this.allRoles = response.data;
+        });
     }
 };
 </script>
