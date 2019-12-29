@@ -131,7 +131,7 @@ public class UserController {
 
         Set<Role> roles = new HashSet<>();
         for (String roleName : (List<String>) userParam.get("roles")) {
-            Role userRole = roleRepository.findByName(RoleName.valueOf(roleName))
+            Role userRole = roleRepository.findByName(roleName)
                     .orElseThrow(() -> new AppException("User Role not set."));
             roles.add(userRole);
         }

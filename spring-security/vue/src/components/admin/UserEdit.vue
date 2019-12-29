@@ -31,19 +31,22 @@
 
                 <b-field label="roles"></b-field>
 
-                <b-field>
-                    <b-checkbox
-                        v-model="roles"
-                        v-for="role in allRoles"
-                        :key="role.id"
-                        :native-value="role.name"
-                        class="is-pulled-left"
-                    >
-                        {{ role.name }}
-                    </b-checkbox>
-                </b-field>
+                
+                <div class="is-clearfix"></div>
+
+                <b-dropdown v-model="rolesSelect" multiple aria-role="list"  >
+                    <button class="button is-primary" type="button" slot="trigger">
+                        <span>Selected ({{ rolesSelect.length }})</span>
+                        <b-icon icon="menu-down"></b-icon>
+                    </button>
+
+                    <b-dropdown-item v-for="role in allRoles" :key="role.id" :value="role.name" aria-role="listitem" >
+                        <span>{{role.name}}</span>
+                    </b-dropdown-item>
+                </b-dropdown>
 
                 <div class="is-clearfix"></div>
+                <hr>
 
                 <b-fild>
                     <button class="button" @click="update">更新</button>
@@ -62,7 +65,7 @@ export default {
             username: null,
             name: null,
             email: null,
-            roles: [],
+            rolesSelect: [],
             allRoles: null
         };
     },
@@ -72,7 +75,7 @@ export default {
             this.username = null;
             this.name = null;
             this.email = null;
-            this.roles = [];
+            this.rolesSelect = [];
 
             this.$Axios.get(`/users/search?searchText=${this.searchText}`).then(response => {
                 let data = response.data;
@@ -82,7 +85,7 @@ export default {
                 this.email = data.email;
 
                 data.roles.forEach(element => {
-                    this.roles.push(element.name);
+                    this.rolesSelect.push(element.name);
                 });
             });
         },
@@ -90,7 +93,7 @@ export default {
             this.$Axios
                 .put(`/users/${this.username}`, {
                     name: this.name,
-                    roles: this.roles
+                    roles: this.rolesSelect
                 })
                 .then(response => {
                     let data = response.data;
@@ -102,7 +105,7 @@ export default {
                     this.$buefy.toast.open({
                         message: "update success!",
                         type: "is-success",
-                        position: 'is-bottom',
+                        position: "is-bottom"
                     });
                 });
         }
