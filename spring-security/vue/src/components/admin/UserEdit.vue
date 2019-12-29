@@ -98,6 +98,12 @@ export default {
                     this.username = data.username;
                     this.name = data.name;
                     this.email = data.email;
+
+                    this.$buefy.toast.open({
+                        message: "update success!",
+                        type: "is-success",
+                        position: 'is-bottom',
+                    });
                 });
         }
     },

@@ -14,8 +14,7 @@
                         </b-menu-item>
 
                         <b-menu-item label="角色管理">
-                            <b-menu-item label="全部角色"></b-menu-item>
-                            <b-menu-item label="编辑角色"></b-menu-item>
+                            <b-menu-item label="编辑角色" @click="onMenu('roleEdit')"></b-menu-item>
                         </b-menu-item>
                     </b-menu-list>
                 </b-menu>
@@ -23,6 +22,7 @@
             <div class="column is-10 ">
                 <UserTable v-if="vif.userTable"> </UserTable>
                 <UserEdit v-if="vif.userEdit"></UserEdit>
+                <RoleEdit v-if="vif.roleEdit"></RoleEdit>
             </div>
         </div>
     </div>
@@ -31,19 +31,22 @@
 <script>
 import UserTable from "../components/admin/UserTable";
 import UserEdit from "../components/admin/UserEdit";
+import RoleEdit from "../components/admin/RoleEdit";
 
 export default {
     data() {
         return {
             vif: {
                 userTable: false,
-                userEdit: false
+                userEdit: false,
+                roleEdit: false
             }
         };
     },
     components: {
         UserTable,
-        UserEdit
+        UserEdit,
+        RoleEdit
     },
     methods: {
         onMenu: function(key) {
