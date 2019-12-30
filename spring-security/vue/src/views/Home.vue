@@ -1,7 +1,7 @@
 <template>
     <div class="home section">
         <b-icon pack="fas" icon="arrow-up" size="is-small"> </b-icon>
-        <br>
+        <br />
         <button class="button is-primary" @click="testBtnOnClick">
             hello
         </button>

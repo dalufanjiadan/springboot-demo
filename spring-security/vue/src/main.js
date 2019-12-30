@@ -53,9 +53,12 @@ library.add(
     // faAccount
 );
 
+import VeLine from 'v-charts/lib/line.common'
+
 library.add(faUserSecret, faAd, faFontAwesome);
 // Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component('vue-fontawesome', FontAwesomeIcon);
+Vue.component(VeLine.name, VeLine)
 
 Vue.use(Buefy, {
     defaultIconComponent: "vue-fontawesome",

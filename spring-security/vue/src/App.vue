@@ -21,8 +21,8 @@
                 <b-navbar-item href="/#/">
                     Home
                 </b-navbar-item>
-                <b-navbar-item href="/#/admin">
-                    Admin
+                <b-navbar-item href="/#/chart">
+                    Chart
                 </b-navbar-item>
                 <b-navbar-dropdown label="Info">
                     <b-navbar-item href="/#/about">
