@@ -12,7 +12,7 @@ import VueAxios from "vue-axios";
 import Axios from "./utils/httpUtil";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret, faAd } from "@fortawesome/free-solid-svg-icons";
+import { faUserSecret, faAd, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faFontAwesome } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -32,6 +32,7 @@ import {
     faCaretUp,
     faUpload,
     // faAccount,
+    faHome
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -50,7 +51,9 @@ library.add(
     faCaretUp,
     faUpload,
     faFontAwesome,
-    // faAccount
+    // faAccount,
+    faHome,
+    faSearch
 );
 
 import VeLine from 'v-charts/lib/line.common'

@@ -24,6 +24,9 @@
                 <b-navbar-item href="/#/chart">
                     Chart
                 </b-navbar-item>
+                <b-navbar-item href="/#/test">
+                    Test
+                </b-navbar-item>
                 <b-navbar-dropdown label="Info">
                     <b-navbar-item href="/#/about">
                         About
