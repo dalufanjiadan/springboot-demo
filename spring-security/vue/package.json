@@ -10,6 +10,7 @@
     "build:pro": "vue-cli-service build --mode pro"
   },
   "dependencies": {
+    "@antv/data-set": "^0.10.2",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-brands-svg-icons": "^5.12.0",
@@ -21,6 +22,7 @@
     "core-js": "^3.4.3",
     "echarts": "^4.6.0",
     "v-charts": "^1.19.0",
+    "viser-vue": "^2.4.8",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.1.3",

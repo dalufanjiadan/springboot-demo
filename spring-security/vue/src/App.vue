@@ -24,6 +24,9 @@
                 <b-navbar-item href="/#/chart">
                     Chart
                 </b-navbar-item>
+                <b-navbar-item href="/#/antv">
+                    AntV
+                </b-navbar-item>
                 <b-navbar-item href="/#/test">
                     Test
                 </b-navbar-item>

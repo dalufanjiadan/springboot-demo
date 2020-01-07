@@ -11,6 +11,8 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import Axios from "./utils/httpUtil";
 
+import Viser from 'viser-vue'
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret, faAd, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faFontAwesome } from "@fortawesome/free-brands-svg-icons";
@@ -71,6 +73,8 @@ Vue.use(Buefy, {
 
 Vue.use(VueAxios, axios);
 Vue.use(Axios);
+Vue.use(Viser)
+
 
 new Vue({
     router,
