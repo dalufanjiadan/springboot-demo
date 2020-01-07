@@ -1,11 +1,20 @@
 <template>
     <div class="section">
-        <h1>hello world</h1>
+        <Income></Income>
     </div>
 </template>
 
 <script>
-export default {};
+import Income from "../components/antv/live/Income";
+
+export default {
+    data() {
+        return {};
+    },
+    components: {
+        Income
+    }
+};
 </script>
 
 <style></style>
