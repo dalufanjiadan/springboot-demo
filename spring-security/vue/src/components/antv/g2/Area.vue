@@ -1,84 +1,62 @@
 <template>
     <div>
-        <div id="c1"></div>
+        <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
+            <v-tooltip />
+            <v-axis />
+            <v-legend />
+            <v-line position="year*value" :size="2" color="country" adjust="stack" />
+            <v-stack-area position="year*value" color="country" />
+        </v-chart>
     </div>
 </template>
 
 <script>
+const data = [
+    { country: "Asia", year: "1750", value: 502 },
+    { country: "Asia", year: "1800", value: 635 },
+    { country: "Asia", year: "1850", value: 809 },
+    { country: "Asia", year: "1900", value: 5268 },
+    { country: "Asia", year: "1950", value: 4400 },
+    { country: "Asia", year: "1999", value: 3634 },
+    { country: "Asia", year: "2050", value: 947 },
+    { country: "Africa", year: "1750", value: 106 },
+    { country: "Africa", year: "1800", value: 107 },
+    { country: "Africa", year: "1850", value: 111 },
+    { country: "Africa", year: "1900", value: 1766 },
+    { country: "Africa", year: "1950", value: 221 },
+    { country: "Africa", year: "1999", value: 767 },
+    { country: "Africa", year: "2050", value: 133 },
+    { country: "Europe", year: "1750", value: 163 },
+    { country: "Europe", year: "1800", value: 203 },
+    { country: "Europe", year: "1850", value: 276 },
+    { country: "Europe", year: "1900", value: 628 },
+    { country: "Europe", year: "1950", value: 547 },
+    { country: "Europe", year: "1999", value: 729 },
+    { country: "Europe", year: "2050", value: 408 },
+    { country: "Oceania", year: "1750", value: 200 },
+    { country: "Oceania", year: "1800", value: 200 },
+    { country: "Oceania", year: "1850", value: 200 },
+    { country: "Oceania", year: "1900", value: 460 },
+    { country: "Oceania", year: "1950", value: 230 },
+    { country: "Oceania", year: "1999", value: 300 },
+    { country: "Oceania", year: "2050", value: 300 }
+];
+
+const scale = [
+    {
+        dataKey: "year",
+        type: "linear",
+        tickInterval: 50
+    }
+];
+
 export default {
-    components: {},
-    created() {},
-    mounted() {
-        this.init();
-    },
     data() {
         return {
-            msg: "",
-            chart: null,
-            data: [
-                { year: "1986", ACME: 162, Compitor: 42 },
-                { year: "1987", ACME: 134, Compitor: 54 },
-                { year: "1988", ACME: 116, Compitor: 26 },
-                { year: "1989", ACME: 122, Compitor: 32 },
-                { year: "1990", ACME: 178, Compitor: 68 },
-                { year: "1991", ACME: 144, Compitor: 54 },
-                { year: "1992", ACME: 125, Compitor: 35 },
-                { year: "1993", ACME: 176, Compitor: 66 },
-                { year: "1994", ACME: 156 },
-                { year: "1995", ACME: 195 },
-                { year: "1996", ACME: 215 },
-                { year: "1997", ACME: 176, Compitor: 36 },
-                { year: "1998", ACME: 167, Compitor: 47 },
-                { year: "1999", ACME: 142 },
-                { year: "2000", ACME: 117 },
-                { year: "2001", ACME: 113, Compitor: 23 },
-                { year: "2002", ACME: 132 },
-                { year: "2003", ACME: 146, Compitor: 46 },
-                { year: "2004", ACME: 169, Compitor: 59 },
-                { year: "2005", ACME: 184, Compitor: 44 }
-            ]
+            data,
+            scale,
+            height: 400
         };
-    },
-    methods: {
-        init() {
-            var Stat = G2.Stat;
-            // var Frame = G2.Frame;
-            var frame = new G2.Frame(this.data);
-            frame = Frame.combinColumns(frame, ["ACME", "Compitor"], "value", "type", "year");
-            var chart = new G2.Chart({
-                id: "c1",
-                forceFit: true,
-                height: 450
-            });
-            chart.source(frame, {
-                value: {
-                    alias: "The Share Price in Dollars",
-                    formatter: function(val) {
-                        return "$" + val;
-                    }
-                },
-                year: {
-                    range: [0, 1]
-                }
-            });
-            chart.tooltip({
-                crosshairs: true
-            });
-            chart
-                .area()
-                .position("year*value")
-                .color("type")
-                .shape("smooth");
-            chart
-                .line()
-                .position("year*value")
-                .color("type")
-                .size(2)
-                .shape("smooth");
-            chart.render();
-        }
-    },
-    // 计算属性
-    computed: {}
+    }
 };
 </script>
