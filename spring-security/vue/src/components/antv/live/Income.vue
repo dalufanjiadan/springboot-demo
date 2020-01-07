@@ -1,57 +1,55 @@
 <template>
-  <div>
-    <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
-      <v-tooltip :showTitle="false" dataKey="item*percent" />
-      <v-axis />
-      <v-legend dataKey="item" />
-      <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
-      <v-coord type="theta" />
-    </v-chart>
-  </div>
+    <div>
+        <h2>{{ msg }}</h2>
+        <div id="c1"></div>
+    </div>
 </template>
 
 <script>
-  const DataSet = require('@antv/data-set');
-
-  const sourceData = [
-    { item: '事例一', count: 40 },
-    { item: '事例二', count: 21 },
-    { item: '事例三', count: 17 },
-    { item: '事例四', count: 13 },
-    { item: '事例五', count: 9 }
-  ];
-
-  const scale = [{
-    dataKey: 'percent',
-    min: 0,
-    formatter: '.0%',
-  }];
-
-  const dv = new DataSet.View().source(sourceData);
-  dv.transform({
-    type: 'percent',
-    field: 'count',
-    dimension: 'item',
-    as: 'percent'
-  });
-  const data = dv.rows;
-
-  export default {
+// 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
+// 例如：import 《组件名称》 from '《组件路径》';
+export default {
+    name: "g2Demo",
+    components: {},
+    // 生命周期 - 创建完成（可以访问当前this实例）
+    created() {},
+    // 生命周期 - 载入后, Vue 实例挂载到实际的 DOM 操作完成，一般在该过程进行 Ajax 交互
+    mounted() {
+        this.initComponent();
+    },
     data() {
-      return {
-        data,
-        scale,
-        height: 400,
-        pieStyle: {
-          stroke: "#fff",
-          lineWidth: 1
-        },
-        labelConfig: ['percent', {
-          formatter: (val, item) => {
-            return item.point.item + ': ' + val;
-          }
-        }],
-      };
-    }
-  };
+        return {
+            msg: "",
+            chart: null,
+            data: [
+                { genre: "Sports", sold: 275 },
+                { genre: "Strategy", sold: 115 },
+                { genre: "Action", sold: 120 },
+                { genre: "Shooter", sold: 350 },
+                { genre: "Other", sold: 150 }
+            ]
+        };
+    },
+    // 方法集合
+    methods: {
+        initComponent() {
+            // 此函数为个人习惯,喜欢创建一个初始化的函数
+            this.msg = "vue-cli案例";
+            const chart = new G2.Chart({
+                container: "c1",
+                width: 600,
+                height: 300
+            });
+            chart.source(this.data);
+            chart
+                .interval()
+                .position("genre*sold")
+                .color("genre");
+            this.chart = chart;
+            this.chart.render();
+        }
+    },
+    // 计算属性
+    computed: {}
+};
 </script>

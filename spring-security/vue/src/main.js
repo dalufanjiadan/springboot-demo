@@ -11,7 +11,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import Axios from "./utils/httpUtil";
 
-import Viser from 'viser-vue'
+import Viser from "viser-vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret, faAd, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -58,23 +58,24 @@ library.add(
     faSearch
 );
 
-import VeLine from 'v-charts/lib/line.common'
+import VeLine from "v-charts/lib/line.common";
 
 library.add(faUserSecret, faAd, faFontAwesome);
 // Vue.component("font-awesome-icon", FontAwesomeIcon);
-Vue.component('vue-fontawesome', FontAwesomeIcon);
-Vue.component(VeLine.name, VeLine)
+Vue.component("vue-fontawesome", FontAwesomeIcon);
+Vue.component(VeLine.name, VeLine);
 
 Vue.use(Buefy, {
     defaultIconComponent: "vue-fontawesome",
     defaultIconPack: "fas"
 });
 
-
 Vue.use(VueAxios, axios);
 Vue.use(Axios);
-Vue.use(Viser)
+Vue.use(Viser);
 
+import G2 from "@antv/g2";
+Vue.use(G2);
 
 new Vue({
     router,
