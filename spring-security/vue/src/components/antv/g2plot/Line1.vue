@@ -16,9 +16,7 @@ export default {
             linePlot: null
         };
     },
-    mounted() {
-        // this.render();
-    },
+    mounted() {},
     created() {
         this.$Axios
             .get(
@@ -29,41 +27,27 @@ export default {
             });
     },
     methods: {
-        render() {
-            const data = this.lineData;
-
-            console.log("================");
-            console.log(data);
-            console.log("================");
-            if (this.linePlot !== null) {
-                console.log("--==");
-                console.log(typeof this.linePlot);
-                console.log();
-                this.linePlot.destroy();
-                console.log("--==");
-            }
-
-            this.linePlot = new Line("canvas", {
-                data,
-                xField: "dateTime",
-                yField: "value",
-                seriesField: "date"
-            });
-
-            this.linePlot.render();
-        },
         testBtnOnClick: function() {
-            console.log("--==");
-            console.log(typeof this.linePlot);
-            console.log(Object.keys(this.linePlot));
-            this.linePlot.clear();
-            console.log("--==");
         }
     },
     watch: {
         lineData: {
             handler(newLineData, oldLineData) {
-                this.render();
+                if (this.linePlot !== null) {
+                    this.linePlot.changeData(this.lineData);
+                    this.linePlot.clear();
+                } else {
+                    // 为什么不能直接传newLineData呢
+                    const data = newLineData;
+
+                    this.linePlot = new Line("canvas", {
+                        data,
+                        xField: "dateTime",
+                        yField: "value",
+                        seriesField: "date"
+                    });
+                }
+                this.linePlot.render();
             },
             deep: true
         }
