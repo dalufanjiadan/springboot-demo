@@ -23,12 +23,38 @@ export default {
                 "/game/live/incomeLine?dateThird=2019-12-22&gameId=94&opGameId=all&serverId=all&timeRange=hour"
             )
             .then(response => {
-                this.lineData = response.data.data;
+                //
+
+                let data = response.data.data;
+                let dataToday = [];
+                let dataYesterday = [];
+                let dataThird = [];
+                // "".
+                data.forEach(element => {
+                    element.dateTime = element.dateTime.slice(0,2);
+                    if (element.date === "今日") {
+                        dataToday.push(element);
+                    } else if (element.date === "昨日") {
+                        dataYesterday.push(element);
+                    } else {
+                        // dataThird.push(element);
+                    }
+                });
+
+                this.lineData = [];
+                for (let index = 0; index < dataYesterday.length; index++) {
+                    if (index < dataToday.length) {
+                        // this.lineData.push(dataToday[index]);
+                    }
+                    this.lineData.push(dataYesterday[index]);
+                    // this.lineData.push(dataThird[index]);
+                }
+
+                // this.lineData = response.data.data;
             });
     },
     methods: {
-        testBtnOnClick: function() {
-        }
+        testBtnOnClick: function() {}
     },
     watch: {
         lineData: {
@@ -42,9 +68,14 @@ export default {
 
                     this.linePlot = new Line("canvas", {
                         data,
+                        // xField: "timeInSeconds",
                         xField: "dateTime",
                         yField: "value",
-                        seriesField: "date"
+                        seriesField: "date",
+                        xAxis: {
+                            // type: "timeCat",
+                            autoHideLabel: true
+                        }
                     });
                 }
                 this.linePlot.render();
