@@ -47,6 +47,11 @@ const routes = [
         path: "/antv",
         name: "antv",
         component: () => import("../views/AntV.vue")
+    },
+    {
+        path: "/html",
+        name: "html",
+        component: () => import("../views/Html.vue")
     }
 ];
 

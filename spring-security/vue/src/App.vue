@@ -38,6 +38,14 @@
                         Contact
                     </b-navbar-item>
                 </b-navbar-dropdown>
+                <b-navbar-dropdown label="html">
+                    <b-navbar-item href="/#/html">
+                        Html
+                    </b-navbar-item>
+                    <b-navbar-item href="/#/css">
+                        Css
+                    </b-navbar-item>
+                </b-navbar-dropdown>
             </template>
 
             <template slot="end">
