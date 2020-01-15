@@ -1,6 +1,7 @@
 <template>
     <div class="section">
         <h1>hello world</h1>
+        <h1>hello world</h1>
         <div class="section"></div>
     </div>
 </template>
