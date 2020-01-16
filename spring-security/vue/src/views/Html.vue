@@ -5,16 +5,12 @@
         <div class="columns">
             <div class="column is-half">
                 <pre>
-                    <Prism language="html">
-&lt;h1&gt;hello world&lt;/h1&gt;
-&lt;p&gt; fasdfasdfasdfas &lt;/p&gt;
-                    </Prism>
+                    <Prism language="html">{{htmlCode}}</Prism>
                 </pre>
             </div>
             <div class="column  is-half">
                 <h1>hello world</h1>
-                <hr>
-                <p>fasdfasdfasdfas</p>
+                <p>hello world</p>
             </div>
         </div>
 
@@ -37,7 +33,10 @@ import Prism from "vue-prism-component";
 export default {
     data() {
         return {
-            publicPath: process.env.BASE_URL
+            publicPath: process.env.BASE_URL,
+            htmlCode: `<h1>hello world</h1>
+<p>hello world</p>
+`
         };
     },
     components: {
@@ -65,7 +64,7 @@ export default {
     /* background-color: aquamarine; */
     font-size: 1em;
 }
-pre{
+pre {
     /* padding: 0%; */
 }
 </style>
