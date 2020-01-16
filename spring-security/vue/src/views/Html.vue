@@ -9,8 +9,44 @@
                 </pre>
             </div>
             <div class="column  is-half">
-                <h1>hello world</h1>
-                <p>hello world</p>
+                <header>
+                    <div id="logo">HTML</div>
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/link">Page</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <article>
+                    <h2>Title 1</h2>
+                    <p>Content 1</p>
+                </article>
+                <article>
+                    <h2>Title 2</h2>
+                    <p>Content 2</p>
+                </article>
+                <section>A group of related content</section>
+                <aside>Sidebar</aside>
+                <footer>
+                    <p>&copy; HTML CheatSheet</p>
+                    <address>Contact <a href="mailto:me@htmlg.com">me</a></address>
+                </footer>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-half">
+                <pre>
+                    <prism language="css">
+a{
+    background-color:#fff;
+}
+                    </prism>
+                </pre>
+            </div>
+            <div class="column is-half">
+                
             </div>
         </div>
 
@@ -21,6 +57,8 @@ let i = 10;
 let i = 10;
             </Prism>
         </pre>
+
+        <button class="button is-primary" @click="testBtnClick">test</button>
     </div>
 </template>
 
@@ -34,8 +72,29 @@ export default {
     data() {
         return {
             publicPath: process.env.BASE_URL,
-            htmlCode: `<h1>hello world</h1>
-<p>hello world</p>
+            htmlCode: `<header>
+    <div id="logo">HTML</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/link">Page</a></li>
+        </ul>
+    </nav>
+</header>
+<article>
+    <h2>Title 1</h2>
+    <p>Content 1</p>
+</article>
+<article>
+    <h2>Title 2</h2>
+    <p>Content 2</p>
+</article>
+<section>A group of related content</section>
+<aside>Sidebar</aside>
+<footer>
+    <p>&copy; HTML CheatSheet</p>
+    <address>Contact <a href="mailto:me@htmlg.com">me</a></address>
+</footer>
 `
         };
     },
@@ -43,7 +102,7 @@ export default {
         Prism
     },
     methods: {
-        onTestBtn: function() {
+        testBtnClick: function() {
             console.log("hello world");
             let hello = "hello";
         }
