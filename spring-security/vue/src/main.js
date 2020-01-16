@@ -6,6 +6,10 @@ import store from "./store";
 
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
+Vue.use(Buefy, {
+    defaultIconComponent: "vue-fontawesome",
+    defaultIconPack: "fas"
+});
 
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -64,11 +68,6 @@ library.add(faUserSecret, faAd, faFontAwesome);
 // Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("vue-fontawesome", FontAwesomeIcon);
 Vue.component(VeLine.name, VeLine);
-
-Vue.use(Buefy, {
-    defaultIconComponent: "vue-fontawesome",
-    defaultIconPack: "fas"
-});
 
 Vue.use(VueAxios, axios);
 Vue.use(Axios);
