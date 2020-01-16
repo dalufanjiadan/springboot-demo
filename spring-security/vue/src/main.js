@@ -76,6 +76,10 @@ Vue.use(Viser);
 import G2 from "@antv/g2";
 Vue.use(G2);
 
+// require("./assets/main.scss")
+
+import "./assets/main.scss"
+
 new Vue({
     router,
     store,
