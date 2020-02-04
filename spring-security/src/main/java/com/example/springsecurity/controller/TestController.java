@@ -19,15 +19,17 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "0 Test")
 @RestController
 @RequestMapping("/api/test")
-@PreAuthorize("hasRole('ROLE_USER')")
+// @PreAuthorize("hasRole('ROLE_USER')")
 public class TestController {
     
     @GetMapping("/hello")
     @ApiOperation(value = "hello", notes = "hello world")
+    // TODO
     public String hello(@CurrentUser UserPrincipal currentUser) {
 
 
         System.out.println("-=-=-");
+        // TODO
         System.out.println(currentUser);
 
         System.out.println("hello world");
